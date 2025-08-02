@@ -116,20 +116,12 @@
         });
       });
 
-    function openLightbox(full, alt) {
-      const lightbox = document.getElementById("lightbox");
-      document.getElementById("lightbox-img").src = full;
-      document.getElementById("lightbox-img").alt = alt;
-      document.getElementById("lightbox-caption").innerText = alt;
-      lightbox.style.display = "block";
-
-      // Sharing URLs
-      const encodedURL = encodeURIComponent(full);
-      const encodedText = encodeURIComponent(alt);
-
-      document.getElementById("share-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${encodedURL}`;
-      document.getElementById("share-twitter").href = `https://twitter.com/intent/tweet?url=${encodedURL}&text=${encodedText}`;
-      document.getElementById("share-whatsapp").href = `https://api.whatsapp.com/send?text=${encodedText}%20${encodedURL}`;
+    function openLightbox(imageSrc, altText) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = imageSrc;
+      img.alt = altText;
+      lightbox.style.display = 'flex';
     }
     
     function closeLightbox() {
