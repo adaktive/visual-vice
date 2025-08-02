@@ -100,6 +100,7 @@
 
   <script>
     let currentImageUrl = '';
+    const imageBaseURL = "https://adaktive.github.io/visual-vice/assets/img/full/";
 
     fetch("assets/js/images.json")
       .then(res => res.json())
@@ -109,7 +110,7 @@
           const card = document.createElement("div");
           card.className = "image-card";
           card.innerHTML = `
-            <img src="${img.thumb}" alt="${img.alt}" onclick="">
+            <img src="${img.thumb}" alt="${img.alt}" onclick="openLightbox('${full}', '${title}', '${category}')">
           `;
           container.appendChild(card);
         });
