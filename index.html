@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free AI Wallpapers - Anahata Studios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #fff;
+    }
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: #222;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .thumb {
+      cursor: pointer;
+      border: 1px solid #333;
+      transition: transform 0.2s;
+    }
+    .thumb:hover {
+      transform: scale(1.05);
+    }
+    .preview-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .preview-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 4px solid #fff;
+    }
+    .download-button {
+      display: block;
+      margin-top: 1rem;
+      color: #fff;
+      text-align: center;
+      background: #444;
+      padding: 0.5rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Free AI Wallpapers by Anahata Studios</h1>
+    <p>Download high-quality mobile wallpapers and support our creative journey.</p>
+  </header>
+
+  <main class="gallery" id="gallery"></main>
+
+  <div class="preview-modal" id="previewModal">
+    <div id="modalContent"></div>
+  </div>
+
+  <script>
+    const wallpapers = [
+      {
+        thumbnail: "https://your-storage.com/thumbnails/img1.webp",
+        full: "https://your-storage.com/full/img1.jpg",
+        title: "Mystic Forest"
+      },
+      {
+        thumbnail: "https://your-storage.com/thumbnails/img2.webp",
+        full: "https://your-storage.com/full/img2.jpg",
+        title: "Cosmic Dream"
+      },
+      // Add more here
+    ];
+
+    const gallery = document.getElementById("gallery");
+    const modal = document.getElementById("previewModal");
+    const modalContent = document.getElementById("modalContent");
+
+    wallpapers.forEach(wallpaper => {
+      const img = document.createElement("img");
+      img.src = wallpaper.thumbnail;
+      img.alt = wallpaper.title;
+      img.className = "thumb";
+      img.onclick = () => openPreview(wallpaper);
+      gallery.appendChild(img);
+    });
+
+    function openPreview(wallpaper) {
+      modalContent.innerHTML = `
+        <img src="${wallpaper.full}" alt="${wallpaper.title}" />
+        <a class="download-button" href="${wallpaper.full}" download>Download Wallpaper</a>
+      `;
+      modal.style.display = "flex";
+    }
+
+    modal.onclick = () => modal.style.display = "none";
+  </script>
+</body>
+</html>
