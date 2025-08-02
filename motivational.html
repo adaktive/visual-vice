@@ -1,71 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Motivational Vibes</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motivational | Visual Vice</title>
+  <link rel="stylesheet" href="assets/css/style.css"/>
   <style>
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-    .card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; cursor: pointer; }
-    .card img { width: 100%; display: block; }
-    .lightbox {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 2rem;
     }
-    .lightbox-content {
-      background: white; padding: 1rem; border-radius: 8px;
-      max-width: 90%; max-height: 90%; text-align: center;
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
     }
-    .lightbox-content img { max-width: 100%; max-height: 70vh; }
-    .share-buttons a { margin: 0 10px; text-decoration: none; font-weight: bold; }
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .image-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .image-card:hover {
+      transform: scale(1.03);
+    }
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Lightbox styles */
+    #lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 80vh;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+    .share-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .share-buttons button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    .share-buttons button:hover {
+      background-color: #0056b3;
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <h1>Motivational Posts</h1>
+  <div id="gallery" class="gallery-container"></div>
 
-  <h1>Motivational Vibes</h1>
-  <div id="gallery" class="grid"></div>
-
-  <div id="lightbox" class="lightbox">
-    <div class="lightbox-content">
-      <img id="lightbox-image" src="" alt="">
-      <div class="share-buttons" id="share-buttons"></div>
-      <button onclick="closeLightbox()">Close</button>
+  <div id="lightbox">
+    <span id="lightbox-close" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img" src="" alt="">
+    <div class="share-buttons">
+      <button onclick="shareOn('whatsapp')">WhatsApp</button>
+      <button onclick="shareOn('twitter')">Twitter</button>
+      <button onclick="shareOn('facebook')">Facebook</button>
+      <button onclick="downloadImage()">Download</button>
     </div>
   </div>
 
   <script>
-    const gallery = document.getElementById("gallery");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-image");
-    const shareButtons = document.getElementById("share-buttons");
+    let currentImageUrl = '';
+    const imageBaseURL = "https://adaktive.github.io/visual-vice/assets/img/full/";
 
-    fetch('data/images.json')
-      .then(response => response.json())
+    fetch("assets/js/images.json")
+      .then(res => res.json())
       .then(data => {
-        const images = data["Motivational"];
-        images.forEach((img, index) => {
+        const container = document.getElementById("gallery");
+        data["Motivational"].forEach(img => {
           const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `<img src="${img.thumb}" alt="${img.alt}" data-full="${img.full}" data-title="${img.alt}">`;
-          card.onclick = () => openLightbox(img.full, img.alt);
-          gallery.appendChild(card);
+          card.className = "image-card";
+          card.innerHTML = `
+            <img src="${img.thumb}" alt="${img.alt}" onclick="openLightbox(image.full, image.alt)">
+          `;
+          container.appendChild(card);
         });
       });
 
-    function openLightbox(fullUrl, altText) {
-      lightboxImg.src = fullUrl;
-      lightboxImg.alt = altText;
+    function openLightbox(full, alt) {
+      const lightbox = document.getElementById("lightbox");
+      document.getElementById("lightbox-img").src = full;
+      document.getElementById("lightbox-img").alt = alt;
+      document.getElementById("lightbox-caption").innerText = alt;
+      lightbox.style.display = "block";
 
-      shareButtons.innerHTML = `
-        <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(fullUrl)}" target="_blank">Twitter</a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullUrl)}" target="_blank">Facebook</a>
-        <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(fullUrl)}" target="_blank">WhatsApp</a>
-      `;
-      lightbox.style.display = "flex";
+      // Sharing URLs
+      const encodedURL = encodeURIComponent(full);
+      const encodedText = encodeURIComponent(alt);
+
+      document.getElementById("share-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${encodedURL}`;
+      document.getElementById("share-twitter").href = `https://twitter.com/intent/tweet?url=${encodedURL}&text=${encodedText}`;
+      document.getElementById("share-whatsapp").href = `https://api.whatsapp.com/send?text=${encodedText}%20${encodedURL}`;
+    }
+    
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+      document.getElementById("lightbox-img").src = "";
     }
 
-    function closeLightbox() {
-      lightbox.style.display = "none";
+    function shareOn(platform) {
+      let shareURL = encodeURIComponent(currentImageUrl);
+      if (platform === 'whatsapp') {
+        window.open(`https://api.whatsapp.com/send?text=${shareURL}`, '_blank');
+      } else if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?url=${shareURL}`, '_blank');
+      } else if (platform === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareURL}`, '_blank');
+      }
+    }
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.href = currentImageUrl;
+      link.download = currentImageUrl.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   </script>
 </body>
