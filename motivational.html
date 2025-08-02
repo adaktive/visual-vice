@@ -2,75 +2,150 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Motivational Vibes - Visual Vice</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motivational | Visual Vice</title>
+  <link rel="stylesheet" href="assets/css/style.css"/>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 1rem;
+      font-family: Arial, sans-serif;
       background: #f5f5f5;
+      margin: 0;
+      padding: 2rem;
     }
     h1 {
       text-align: center;
       margin-bottom: 2rem;
     }
-    .grid {
+    .gallery-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1.5rem;
     }
-    .card {
+    .image-card {
       background: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       overflow: hidden;
-      transition: 0.3s;
-    }
-    .card img {
-      width: 100%;
-      display: block;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
-    .card:hover {
-      transform: translateY(-5px);
+    .image-card:hover {
+      transform: scale(1.03);
     }
-    .lightbox-caption {
-      text-align: center;
-      margin-top: 1rem;
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Lightbox styles */
+    #lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 80vh;
+      margin-bottom: 1rem;
+      border-radius: 10px;
     }
     .share-buttons {
-      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .share-buttons a {
-      display: inline-block;
-      margin: 0 0.5rem;
-      text-decoration: none;
-      color: #fff;
-      background-color: #333;
+    .share-buttons button {
       padding: 0.5rem 1rem;
-      border-radius: 5px;
-      font-size: 0.9rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    .share-buttons button:hover {
+      background-color: #0056b3;
+    }
+    #lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>Motivational Vibes</h1>
-  <div class="grid">
-    <!-- Sample card -->
-    <div class="card">
-      <a href="images/motivation1.jpg" data-lightbox="gallery" data-title="Stay focused. Stay humble.<br><div class='share-buttons'>
-        <a href='https://twitter.com/intent/tweet?text=Stay focused. Stay humble.&url=https://yourdomain.com/images/motivation1.jpg' target='_blank'>Twitter</a>
-        <a href='https://www.facebook.com/sharer/sharer.php?u=https://yourdomain.com/images/motivation1.jpg' target='_blank'>Facebook</a>
-        <a href='https://api.whatsapp.com/send?text=Stay focused. Stay humble. https://yourdomain.com/images/motivation1.jpg' target='_blank'>WhatsApp</a>
-      </div>">
-        <img src="images/motivation1_thumb.jpg" alt="Motivational Image 1" />
-      </a>
+  <h1>Motivational Posts</h1>
+  <div id="gallery" class="gallery-container"></div>
+
+  <div id="lightbox">
+    <span id="lightbox-close" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img" src="" alt="">
+    <div class="share-buttons">
+      <button onclick="shareOn('whatsapp')">WhatsApp</button>
+      <button onclick="shareOn('twitter')">Twitter</button>
+      <button onclick="shareOn('facebook')">Facebook</button>
+      <button onclick="downloadImage()">Download</button>
     </div>
-    <!-- Add more cards similarly -->
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+  <script>
+    let currentImageUrl = '';
+
+    fetch("assets/js/images.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("gallery");
+        data["Motivational"].forEach(img => {
+          const card = document.createElement("div");
+          card.className = "image-card";
+          card.innerHTML = `
+            <img src="${img.thumb}" alt="${img.alt}" onclick="openLightbox('${img.full}', '${img.alt}')">
+          `;
+          container.appendChild(card);
+        });
+      });
+
+    function openLightbox(url, alt) {
+      currentImageUrl = url;
+      document.getElementById("lightbox-img").src = url;
+      document.getElementById("lightbox-img").alt = alt;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+      document.getElementById("lightbox-img").src = "";
+    }
+
+    function shareOn(platform) {
+      let shareURL = encodeURIComponent(currentImageUrl);
+      if (platform === 'whatsapp') {
+        window.open(`https://api.whatsapp.com/send?text=${shareURL}`, '_blank');
+      } else if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?url=${shareURL}`, '_blank');
+      } else if (platform === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareURL}`, '_blank');
+      }
+    }
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.href = currentImageUrl;
+      link.download = currentImageUrl.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
 </body>
 </html>
