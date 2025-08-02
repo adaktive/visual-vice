@@ -94,7 +94,7 @@
     const category = "Motivational";
     let currentFullImage = "";
 
-    fetch('data/images.json')
+    fetch('js/images.json')
       .then(res => res.json())
       .then(data => {
         const images = data[category];
