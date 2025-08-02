@@ -1,10 +1,10 @@
 {
   "Motivational": [
     {
-      "filename": "rise-and-shine.jpg",
+      "filename": "test.jpg",
       "alt": "Rise and shine",
-      "thumb": "assets/img/thumbnails/motivational/rise-and-shine.jpg",
-      "full": "assets/img/full/motivational/rise-and-shine.jpg"
+      "thumb": "assets/img/thumbnails/motivational/placeholder-thumb.jpg",
+      "full": "assets/img/full/motivational/placeholder-full.jpg"
     },
     {
       "filename": "grind-dont-stop.jpg",
