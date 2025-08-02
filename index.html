@@ -1,93 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visual Vice - Free Social Media Posts</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visual Vice - Social Media Image Packs</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #111;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-    }
-    .intro {
-      padding: 20px;
-      text-align: center;
-    }
-    .categories {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 250px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.02);
-    }
-    .card img {
-      width: 100%;
-      height: auto;
-    }
-    .card h3 {
-      margin: 0;
-      padding: 15px;
-    }
-    .card a {
-      display: block;
-      padding: 10px;
-      background-color: #111;
-      color: white;
-      text-decoration: none;
-      border-top: 1px solid #eee;
-    }
-    .card a:hover {
-      background-color: #333;
-    }
+    body { font-family: sans-serif; background: #111; color: #eee; margin: 0; padding: 0; }
+    header { background: #000; padding: 2rem 1rem; text-align: center; }
+    header h1 { font-size: 2rem; margin: 0; }
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; padding: 2rem; }
+    .card { background: #1a1a1a; border-radius: 8px; overflow: hidden; width: 280px; box-shadow: 0 0 10px #000; transition: transform 0.2s ease; }
+    .card:hover { transform: scale(1.05); }
+    .card img { width: 100%; height: 180px; object-fit: cover; }
+    .card h2 { margin: 0; padding: 1rem; font-size: 1.2rem; text-align: center; color: #fff; }
+    a { text-decoration: none; color: inherit; }
   </style>
 </head>
 <body>
   <header>
     <h1>Visual Vice</h1>
-    <p>Free Ready-to-Post JPEG Images for Your Social Media</p>
+    <p>Ready-to-post Aesthetic Images for Your Social Media</p>
   </header>
-  <div class="intro">
-    <p>Download aesthetic and powerful social media visuals for free. No editing required. Categorized by themes — use them to enhance your feed and come back for more!</p>
-  </div>
-  <div class="categories">
-    <div class="card">
-      <img src="assets/motivation/sample.jpg" alt="Motivation">
-      <h3>Motivation</h3>
-      <a href="assets/motivation/sample.jpg" download>Download Sample</a>
+  <main>
+    <div class="grid">
+      <a href="motivational.html" class="card">
+        <img src="thumbs/motivational.jpg" alt="Motivational Vibes">
+        <h2>Motivational Vibes</h2>
+      </a>
+      <a href="heartbreak.html" class="card">
+        <img src="thumbs/heartbreak.jpg" alt="Heartbreak & Aesthetic Sadness">
+        <h2>Heartbreak & Aesthetic Sadness</h2>
+      </a>
+      <a href="spiritual.html" class="card">
+        <img src="thumbs/spiritual.jpg" alt="Spiritual Vibes">
+        <h2>Spiritual Vibes</h2>
+      </a>
+      <a href="dark-academia.html" class="card">
+        <img src="thumbs/darkacademia.jpg" alt="Dark Academia">
+        <h2>Dark Academia</h2>
+      </a>
+      <a href="manifestation.html" class="card">
+        <img src="thumbs/manifestation.jpg" alt="Manifestation & Affirmations">
+        <h2>Manifestation & Affirmations</h2>
+      </a>
+      <a href="relatable.html" class="card">
+        <img src="thumbs/relatable.jpg" alt="Relatable Feels">
+        <h2>Relatable Feels</h2>
+      </a>
+      <a href="selflove.html" class="card">
+        <img src="thumbs/selflove.jpg" alt="Glow Up & Self Love">
+        <h2>Glow Up & Self Love</h2>
+      </a>
+      <a href="zodiac.html" class="card">
+        <img src="thumbs/zodiac.jpg" alt="Zodiac Energy">
+        <h2>Zodiac Energy</h2>
+      </a>
+      <a href="darkhumor.html" class="card">
+        <img src="thumbs/darkhumor.jpg" alt="Dark Humor & Sarcasm">
+        <h2>Dark Humor & Sarcasm</h2>
+      </a>
     </div>
-    <div class="card">
-      <img src="assets/spirituality/sample.jpg" alt="Spirituality">
-      <h3>Spirituality</h3>
-      <a href="assets/spirituality/sample.jpg" download>Download Sample</a>
-    </div>
-    <div class="card">
-      <img src="assets/dark/sample.jpg" alt="Dark Aesthetic">
-      <h3>Dark Aesthetic</h3>
-      <a href="assets/dark/sample.jpg" download>Download Sample</a>
-    </div>
-  </div>
+  </main>
 </body>
 </html>
