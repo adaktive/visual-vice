@@ -1,0 +1,32 @@
+{
+  "Motivational": [
+    {
+      "filename": "rise-and-shine.jpg",
+      "alt": "Rise and shine",
+      "thumb": "assets/img/thumbnails/motivational/rise-and-shine.jpg",
+      "full": "assets/img/full/motivational/rise-and-shine.jpg"
+    },
+    {
+      "filename": "grind-dont-stop.jpg",
+      "alt": "Grind don't stop",
+      "thumb": "assets/img/thumbnails/motivational/grind-dont-stop.jpg",
+      "full": "assets/img/full/motivational/grind-dont-stop.jpg"
+    }
+  ],
+  "Aesthetic Vibes": [
+    {
+      "filename": "sunset-dreams.jpg",
+      "alt": "Dreamy sunset by the beach",
+      "thumb": "assets/img/thumbnails/aesthetic-vibes/sunset-dreams.jpg",
+      "full": "assets/img/full/aesthetic-vibes/sunset-dreams.jpg"
+    }
+  ],
+  "Daily Quotes": [
+    {
+      "filename": "breathe.jpg",
+      "alt": "Just breathe. It's a bad day, not a bad life.",
+      "thumb": "assets/img/thumbnails/daily-quotes/breathe.jpg",
+      "full": "assets/img/full/daily-quotes/breathe.jpg"
+    }
+  ]
+}
