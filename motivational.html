@@ -109,17 +109,22 @@
           const card = document.createElement("div");
           card.className = "image-card";
           card.innerHTML = `
-            <img src="${img.thumb}" alt="${img.alt}" onclick="openLightbox('${img.full}', '${img.alt}')">
+            <img src="${img.thumb}" alt="${img.alt}" onclick="openLightbox('${full}', '${title}', '${category}')">
           `;
           container.appendChild(card);
         });
       });
 
-    function openLightbox(url, alt) {
-      currentImageUrl = url;
-      document.getElementById("lightbox-img").src = url;
-      document.getElementById("lightbox-img").alt = alt;
-      document.getElementById("lightbox").style.display = "flex";
+    function openLightbox(src, alt, category) {
+      const fullSrc = imageBaseURL + category + "/" + src.split("/").pop(); // Ensures full URL
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').alt = alt;
+      document.getElementById('lightbox').style.display = "flex";
+    
+      // Update social share links with the full image URL
+      document.getElementById('facebook-share').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullSrc)}`;
+      document.getElementById('twitter-share').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(fullSrc)}&text=${encodeURIComponent(alt)}`;
+      document.getElementById('whatsapp-share').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(alt + " " + fullSrc)}`;
     }
 
     function closeLightbox() {
